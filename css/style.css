@@ -999,42 +999,50 @@ body.mobile-nav-active #mobile-nav-toggle {
 # projects Section
 --------------------------------------------------------------*/
 
-#projects {
+#projects,
+#ads {
     padding: 60px 0;
 }
 
-#projects .hotel {
+#projects .hotel,
+#ads .hotel {
     border: 1px solid #e0e5fa;
     background: #fff;
     margin-bottom: 30px;
 }
 
-#projects .hotel:hover .hotel-img img {
+#projects .hotel:hover .hotel-img img,
+#ads .hotel:hover .hotel-img img {
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
 }
 
-#projects .hotel-img {
+#projects .hotel-img,
+#ads .hotel-img {
     overflow: hidden;
     margin-bottom: 15px;
 }
 
-#projects .hotel-img img {
+#projects .hotel-img img,
+#ads .hotel-img img {
     transition: 0.3s ease-in-out;
 }
 
-#projects h3 {
+#projects h3,
+#ads h3 {
     font-weight: 600;
     font-size: 20px;
     margin-bottom: 5px;
     padding: 0 20px;
 }
 
-#projects a {
+#projects a,
+#ads a {
     color: #152b79;
 }
 
-#projects a:hover {
+#projects a:hover,
+#ads a:hover {
     color: #f82249;
 }
 
@@ -1043,11 +1051,13 @@ body.mobile-nav-active #mobile-nav-toggle {
     margin-bottom: 5px;
 }
 
-#projects .stars i {
+#projects .stars i,
+#ads .stars i {
     color: #ffc31d;
 }
 
-#projects p {
+#projects p,
+#ads p {
     padding: 0 20px;
     margin-bottom: 20px;
     color: #060c22;
