@@ -1782,6 +1782,15 @@ body.mobile-nav-active #mobile-nav-toggle {
     #header #logo img {
         width: 250px;
     }
+    #header #logo img.logoo {
+        margin-top: 10px;
+    }
+    #intro {
+        margin-top: 70px;
+    }
+    #header {
+        height: 70px;
+    }
 }
 
 
