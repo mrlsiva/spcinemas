@@ -204,7 +204,7 @@ span.header-social img {
     padding: 0;
     margin: 0;
     /* max-height: 40px;*/
-    width: 250px;
+    width: 280px;
     margin-top: 25px;
     max-width: 100%;
 }
@@ -1677,6 +1677,15 @@ body.mobile-nav-active #mobile-nav-toggle {
     #schedule .sub-heading {
         width: 75%;
     }
+    .hide-on-web {
+        display: none;
+    }
+}
+
+@media (max-width: 990.9px) {
+    .hide-on-mobile {
+        display: none;
+    }
 }
 
 @media (min-width: 1024px) {
@@ -1771,7 +1780,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 @media (max-width: 400px) {
     #header #logo img {
-        width: 200px;
+        width: 250px;
     }
 }
 
