@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="fav.png" type="image/x-icon">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Prodco</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .arrows {
+            width: 100%;
+
+            position: absolute;
+            left: 0;
+
+            bottom: 30px;
+            text-align: center;
+        }
+
+        .arrows p a {
+            background-color: #3c0048;
+            padding: 8px 24px;
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .logo {
+
+            width: 100%;
+        }
+
+        .logo.sp {
+            max-width: 200px;
+        }
+
+        .logo.pro {
+            max-width: 500px;
+            top: calc(50% - 280px);
+            position: relative;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .logo.pro {
+                top: calc(50% - 140px);
+                max-width: 200px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            p {
+                font-size: 14px;
+            }
+        }
+
+        *,
+        ::before,
+        ::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .home {
+            height: 100vh;
+            position: relative;
+        }
+
+        video {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .home-content {
+            position: relative;
+            padding-top: 80px;
+            color: #fff;
+            text-align: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="home">
+        <video muted loop autoplay>
+            <source src="bg-2.mp4" type="video/mp4">
+        </video>
+        <div class="home-content container">
+            <h1>Welcome to</h1>
+            <img class="logo pro" src="logo-partner-white.png">
+            <div class="arrows">
+                <p>For more details <a href="http://spcinemas.in/">SP Cinemas</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
