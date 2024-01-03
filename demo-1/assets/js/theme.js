@@ -3200,17 +3200,7 @@
 	// NOTE: Remove this code if you do not want to use the template light style.
 	// ==========================================================================
 
-	// Display style switch button
-	$("#body-inner").prepend('<div class="tt-style-switch"><div class="tt-stsw-dark"><i class="far fa-moon"></i></div><div class="tt-stsw-light"><i class="fas fa-sun"></i></div></div>');
-
-	// Hide magic cursor on button hover
-	if ($("body").hasClass("tt-smooth-scroll")) {
-		$(".tt-style-switch").on("mouseenter", function() {
-			gsap.to($ball, { duration: 0.3, scale: 0, opacity: 0 });
-		}).on("mouseleave", function() {
-			gsap.to($ball, { duration: 0.3, scale: 1, opacity: $ballOpacity });
-		});
-	}
+	
 
 
 	if ($("#tt-light-style-default").length) {

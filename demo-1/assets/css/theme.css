@@ -10246,18 +10246,7 @@ body:not(.is-mobile) .tt-style-switch:hover {
 }
 
 
-.tt-style-switch.is-dark {
-}
-.tt-stsw-dark,
-.tt-stsw-light {
-	line-height: 0;
-}
-.tt-style-switch:not(.is-dark) .tt-stsw-dark {
-	display: none;
-}
-.tt-style-switch.is-dark .tt-stsw-light {
-	display: none;
-}
+
 
 /* If the sliding sidebar is on the right side */
 @media (min-width: 769px) {
