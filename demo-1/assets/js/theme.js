@@ -723,8 +723,17 @@
 
 			}, 900);
 		}
-		
+
 		return false;
+	});
+
+	// Close overlay menu when a link jumps to an in-page anchor (ex: "About Us", "Team")
+	// Expl: these links are excluded from the "page transition out" click handler above (no full
+	// page navigation happens), so without this the overlay menu would stay open after the jump.
+	$('.tt-overlay-menu a[href^="#"]').not('.tt-ol-submenu-trigger > a').on('click', function() {
+		if ($("body").hasClass("tt-ol-menu-open")) {
+			$(".tt-ol-menu-toggle-btn").trigger("click"); // trigger a single toggle element only (triggering the whole $olMenuToggleBtn set double-fires the toggle handler and cancels itself out)
+		}
 	});
 
 	// Menu list hover
