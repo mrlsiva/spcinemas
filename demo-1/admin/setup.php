@@ -3,11 +3,20 @@
 // that used to be hardcoded in index.html. Safe to re-run (CREATE ... IF NOT
 // EXISTS + seed only when a table is empty).
 
-$bootstrap = new PDO('mysql:host=127.0.0.1:3307', 'root', '');
-$bootstrap->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-$bootstrap->exec("CREATE DATABASE IF NOT EXISTS spcinemas CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+// Only needed for local XAMPP, where the "spcinemas" database doesn't exist yet.
+// On live/shared hosting the database is normally pre-created via the control panel
+// (cPanel etc.) and the site's DB user usually lacks CREATE DATABASE privileges, so
+// this is best-effort: if it fails, we just proceed straight to Dbconfig.php's
+// connection, which should already point at an existing database.
+try {
+    $bootstrap = new PDO('mysql:host=127.0.0.1:3307', 'root', '');
+    $bootstrap->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $bootstrap->exec("CREATE DATABASE IF NOT EXISTS spcinemas CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+} catch (PDOException $e) {
+    // Ignore — expected on live hosting (see comment above).
+}
 
-require __DIR__ . '/Dbconfig.php'; // now that the DB exists, $connect (from Dbconfig.php) can select it
+require __DIR__ . '/Dbconfig.php'; // $connect (from Dbconfig.php) should now be able to select the database
 
 $connect->exec("
 CREATE TABLE IF NOT EXISTS banner_slides (
