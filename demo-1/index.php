@@ -193,10 +193,10 @@ function youtube_embed_url($url) {
 											<ul class="tt-ol-menu-list">
 
 												<li><a href="index.php">Home</a></li>
-												<li><a href="#about-us">About Us</a></li>
+												<li><a href="#about-us">Who we are</a></li>
 												<li><a href="#our-team">Team</a></li>
 												<li><a href="#portfolio-grid">What We Do</a></li>
-												<li><a href="#portfolio-grid">Projects</a></li>
+												<li><a href="#portfolio-grid">Our Works</a></li>
 												<li><a href="#associations">Our Associations</a></li>
 												<li><a href="contact.html">Contact us</a></li>
 											</ul>
@@ -355,9 +355,9 @@ function youtube_embed_url($url) {
 											<h5>When passion, courage, and craftsmanship are put into something, positive things will happen.</h5>
 										</div> -->
 
-										<div class="text-gray anim-fadeinup">
+										<!-- <div class="text-gray anim-fadeinup">
 											<p>Lorem ipsum dolor sit amet. Qui velit deleniti et neque illo in reprehenderit numquam. Est officiis eligendi qui enim porro aut quos velit aut ratione accusantium et necessitatibus autem?</p>
-										</div>
+										</div> -->
 
 									</div> <!-- /.tt-col -->
 								</div> <!-- /.tt-row -->
@@ -427,7 +427,7 @@ function youtube_embed_url($url) {
 									<div class="tt-grid ttgr-layout-3 ttgr-gap-3">
 										<div class="tt-heading tt-heading-lg tt-heading-center margin-bottom-120 anim-fadeinup">
 											<!-- <h3 class="tt-heading-subtitle text-main">Subtitle</h3> -->
-											<h2 class="tt-heading-title">PROJECTS</h2> <!-- You can use <br> to break a text line if needed -->
+											<h2 class="tt-heading-title">Our Works</h2> <!-- You can use <br> to break a text line if needed -->
 										</div>
 
 										<!-- Begin tt-Ggrid top content 
