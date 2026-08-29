@@ -375,6 +375,7 @@ function youtube_embed_url($url) {
 										<div class="tt-accordion-heading">
 											<div class="tt-ac-head cursor-alter">
 												<h3 class="tt-ac-head-title"><?php echo htmlspecialchars($member['name'], ENT_QUOTES, 'UTF-8'); ?></h3>
+												<p class=""> <?php echo htmlspecialchars($member['role'], ENT_QUOTES, 'UTF-8'); ?></p>
 											</div>
 
 											<div class="tt-accordion-caret-wrap">
@@ -384,7 +385,7 @@ function youtube_embed_url($url) {
 											</div> <!-- /.tt-accordion-caret-wrap -->
 										</div> <!-- /.tt-accordion-heading -->
 										<div class="tt-accordion-content max-width-800">
-											<h5><?php echo htmlspecialchars($member['role'], ENT_QUOTES, 'UTF-8'); ?></h5>
+											<!-- <h5><?php echo htmlspecialchars($member['role'], ENT_QUOTES, 'UTF-8'); ?></h5> -->
 											<p><?php echo nl2br(htmlspecialchars($member['bio'], ENT_QUOTES, 'UTF-8')); ?></p>
 										</div> <!-- /.tt-accordion-content -->
 									</div> <!-- /.tt-accordion-item -->
@@ -631,12 +632,12 @@ function youtube_embed_url($url) {
 											<img src="assets/img/clients/pramod.jpg" class="lv-client-dark" alt="Client">
 										</a>
 									</li>
-									<li>
+									<!-- <li>
 										<a href="#" class="cursor-alter" target="_blank" rel="noopener">
 											<img src="assets/img/clients/hoichoi.jpg" class="lv-client-light" alt="Client">
 											<img src="assets/img/clients/hoichoi.jpg" class="lv-client-dark" alt="Client">
 										</a>
-									</li>
+									</li> -->
 									<li>
 										<a href="#" class="cursor-alter" target="_blank" rel="noopener">
 											<img src="assets/img/clients/studious-llp.jpg" class="lv-client-light" alt="Client">
@@ -647,6 +648,24 @@ function youtube_embed_url($url) {
 										<a href="#" class="cursor-alter" target="_blank" rel="noopener">
 											<img src="assets/img/clients/kalyan-jewellers.jpg" class="lv-client-light" alt="Client">
 											<img src="assets/img/clients/kalyan-jewellers.jpg" class="lv-client-dark" alt="Client">
+										</a>
+									</li>
+									<li>
+										<a href="#" class="cursor-alter" target="_blank" rel="noopener">
+											<img src="assets/img/clients/zion.jpg" class="lv-client-light" alt="Client">
+											<img src="assets/img/clients/zion.jpg" class="lv-client-dark" alt="Client">
+										</a>
+									</li>
+									<li>
+										<a href="#" class="cursor-alter" target="_blank" rel="noopener">
+											<img src="assets/img/clients/vijay-antony.jpg" class="lv-client-light" alt="Client">
+											<img src="assets/img/clients/vijay-antony.jpg" class="lv-client-dark" alt="Client">
+										</a>
+									</li>
+									<li>
+										<a href="#" class="cursor-alter" target="_blank" rel="noopener">
+											<img src="assets/img/clients/power-house.png" class="lv-client-light" alt="Client">
+											<img src="assets/img/clients/power-house.png" class="lv-client-dark" alt="Client">
 										</a>
 									</li>
 					
