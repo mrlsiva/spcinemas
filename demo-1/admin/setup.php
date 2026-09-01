@@ -9,7 +9,7 @@
 // this is best-effort: if it fails, we just proceed straight to Dbconfig.php's
 // connection, which should already point at an existing database.
 try {
-    $bootstrap = new PDO('mysql:host=127.0.0.1:3307', 'root', '');
+    $bootstrap = new PDO('mysql:host=127.0.0.1:3306', 'root', '');
     $bootstrap->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $bootstrap->exec("CREATE DATABASE IF NOT EXISTS spcinemas CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
 } catch (PDOException $e) {

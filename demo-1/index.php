@@ -183,7 +183,7 @@ function youtube_embed_url($url) {
 							======================== 
 							* Use class "tt-ol-menu-count" to enable menu counter.
 							-->
-							<nav class="tt-overlay-menu tt-ol-menu-count">
+							<nav class="tt-overlay-menu">
 								<div class="tt-ol-menu-ghost">SP CINEMAS</div>
 								<div class="tt-ol-menu-holder">
 									<div class="tt-ol-menu-inner tt-wrap">
@@ -198,7 +198,7 @@ function youtube_embed_url($url) {
 												<li><a href="#portfolio-grid">What We Do</a></li>
 												<li><a href="#portfolio-grid">Our Works</a></li>
 												<li><a href="#associations">Our Associations</a></li>
-												<li><a href="contact.html">Contact us</a></li>
+												<li><a href="#lets-talk">Contact us</a></li>
 											</ul>
 											<!-- End menu list -->
 
@@ -297,17 +297,18 @@ function youtube_embed_url($url) {
 						<!-- =======================
 						///// Begin tt-section /////
 						============================ 
-						* You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
+						* You can use padding classes if needed. For example "padding-top-xlg-60", "padding-bottom-xlg-60", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
 						-->
-						<div id="about-us" class="tt-section padding-top-xlg-180 padding-bottom-xlg-180 padding-left-sm-3-p padding-right-sm-3-p">
+						<div id="about-us" class="tt-section padding-top-xlg-180 padding-bottom-xlg-60 padding-left-sm-3-p padding-right-sm-3-p">
 							<div class="tt-section-inner tt-wrap max-width-1000">
 
 
 								<h2 class="anim-fadeinup tt-heading-title">Who We Are?</h2>
 								<div class="anim-fadeinup">
-									<p>SP Cinemas was formed by Passionate Team to fill the gap which existed in the market based on their past experiences in the Industry. The Core Team of Sankar, Kishore & Naren used to work for PVP Cinema handling Production, Distribution & Marketing Respectively before branching out independently to start their own Production House.</p>
+									<p>  SP Cinemas has emerged as one of the dynamic content production, distribution, and marketing companies that merges creativity with commerce. Our mission is to democratize access to high quality content by ensuring it reaches a wider audience by supporting small to medium budget films with strong content through effective exploitation across all platforms. </p>
+									<!-- <p>SP Cinemas was formed by Passionate Team to fill the gap which existed in the market based on their past experiences in the Industry. The Core Team of Sankar, Kishore & Naren used to work for PVP Cinema handling Production, Distribution & Marketing Respectively before branching out independently to start their own Production House.</p>
 									<p>Small/Medium budget films with Strong Content and lesser known Actors/New Actors are not able to reach the audience due to various factors including improper Marketing & Distribution to name a few. We at SP Cinemas identify such projects and help the producer in releasing such films. SP Cinemas helps People/Investors with Passion for Cinema in identifying, choosing and executing projects from Script Identification till Release at Theatres for them thereby reducing the risks associated with producing a movie.</p>
-									<p>We at SP Cinemas see filmmaking as both a Creative and Business Process. So we are involved right from the scripting stage till the release of the film. We handle the entire filmmaking process chain including Production, Marketing & Distribution. SP Cinemas is committed to bring transparency in Film Making business by making all stake holders accountable. The team consists of seasoned industry professionals who have worked with Madras Talkies, Vijay TV, Raadan Media Works, PVP Cinema, UTV Motion Pictures, Qube Digital Cinema etc.</p>
+									<p>We at SP Cinemas see filmmaking as both a Creative and Business Process. So we are involved right from the scripting stage till the release of the film. We handle the entire filmmaking process chain including Production, Marketing & Distribution. SP Cinemas is committed to bring transparency in Film Making business by making all stake holders accountable. The team consists of seasoned industry professionals who have worked with Madras Talkies, Vijay TV, Raadan Media Works, PVP Cinema, UTV Motion Pictures, Qube Digital Cinema etc.</p> -->
 								</div>
 
 							</div> <!-- /.tt-section-inner -->
@@ -326,9 +327,9 @@ function youtube_embed_url($url) {
 						<!-- =======================
 						///// Begin tt-section /////
 						============================ 
-						* You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
+						* You can use padding classes if needed. For example "padding-top-xlg-60", "padding-bottom-xlg-60", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
 						-->
-						<div id="our-team" class="tt-section padding-top-xlg-150 padding-bottom-xlg-150">
+						<div id="our-team" class="tt-section padding-top-xlg-60 padding-bottom-xlg-60">
 							<div class="tt-section-inner tt-wrap">
 
 								<div class="tt-row padding-bottom-2-p">
@@ -401,7 +402,7 @@ function youtube_embed_url($url) {
 						<!-- =======================
 						///// Begin tt-section /////
 						============================ 
-						* You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
+						* You can use padding classes if needed. For example "padding-top-xlg-60", "padding-bottom-xlg-60", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
 						-->
 						<div class="tt-section">
 							<div class="tt-section-inner">
@@ -413,7 +414,7 @@ function youtube_embed_url($url) {
 								* Use class "pgi-cap-center" to position portfolio grid item caption to center.
 								* Use class "pgi-cap-inside" to position portfolio grid item caption to inside.
 								--> 
-								<div id="portfolio-grid" class="pgi-hover pgi-cap-inside">
+								<div id="portfolio-grid" class="pgi-hover">
 
 									<!-- Begin tt-Grid
 									=================== 
@@ -584,9 +585,9 @@ function youtube_embed_url($url) {
 						<!-- =======================
 						///// Begin tt-section /////
 						============================ 
-						* You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
+						* You can use padding classes if needed. For example "padding-top-xlg-60", "padding-bottom-xlg-60", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
 						-->
-						<div id="associations" class="tt-section padding-top-xlg-150 padding-bottom-xlg-150">
+						<div id="associations" class="tt-section padding-top-xlg-60 padding-bottom-xlg-60">
 							<div class="tt-section-inner tt-wrap">
 
 								<!-- Begin tt-Heading
@@ -684,24 +685,141 @@ function youtube_embed_url($url) {
 						<!-- =======================
 						///// Begin tt-section /////
 						============================ 
-						* You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
+						* You can use padding classes if needed. For example "padding-top-xlg-60", "padding-bottom-xlg-60", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
 						-->
-						<div class="tt-section padding-top-xlg-150 padding-bottom-xlg-150">
+						<div id="lets-talk" class="tt-section padding-top-xlg-60 padding-bottom-xlg-60">
 							<div class="tt-section-inner tt-wrap">
 
-								<!-- Begin page nav 
-								==================== 
+								<!-- Begin page nav
+								====================
 								* Use class "tt-pn-center" to align page nav to center.
 								* Use class "tt-pn-stroke" to enable title stroke style.
 								-->
 								<div class="tt-page-nav tt-pn-stroke">
-									<a href="contact.html" class="tt-pn-link anim-fadeinup" data-cursor="<i class='fas fa-envelope'></i>">
+									<a href="#lets-talk" class="tt-pn-link anim-fadeinup" data-cursor="<i class='fas fa-envelope'></i>">
 										<div class="tt-pn-title">Let's talk</div>
 										<div class="tt-pn-hover-title">Let's talk</div>
 									</a> <!-- /.tt-pn-link -->
-									<div class="tt-pn-subtitle anim-fadeinup">Get in Touch</div>
+									<!-- <div class="tt-pn-subtitle anim-fadeinup">Get in Touch</div> -->
 								</div>
 								<!-- End page nav -->
+
+								<!-- Begin contact content
+								==================== -->
+								<div class="tt-row tt-lg-row-reverse padding-top-xlg-60">
+									<div class="tt-col-lg-4">
+
+										<!-- Begin contact info
+											======================== -->
+										<ul class="tt-contact-info padding-bottom-40 anim-fadeinup">
+											<li>
+												<span class="tt-ci-icon"><i class="fas fa-map-marker-alt"></i></span>
+												SP Cinemas, 1st Floor, No 17A, Rajaji Colony, Muthuramaligam Street,
+												Saligramam, Chennai – 600093.
+												<br>
+												Land Mark: Near Saligramam Bus Stand ( Levels GYM Building)
+											</li>
+											<li>
+												<span class="tt-ci-icon"><i class="fas fa-envelope"></i></span>
+												<a href="mailto:info@spcinemas.in" class="tt-link">info@spcinemas.in</a>
+											</li>
+											<li>
+												<h6 class="no-margin-bottom margin-top-40">Follow:</h6>
+												<!-- Begin social buttons -->
+												<div class="social-buttons">
+													<ul>
+														<li>
+															<div class="magnetic-wrap"><a href="https://www.facebook.com/thespcinemas/" class="magnetic-item not-hide-cursor" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a></div>
+														</li>
+														<li>
+															<div class="magnetic-wrap"><a href="https://twitter.com/thespcinemas" class="magnetic-item not-hide-cursor" target="_blank" rel="noopener"><i class="fab fa-twitter"></i></a></div>
+														</li>
+														<li>
+															<div class="magnetic-wrap"><a href="https://www.instagram.com/thespcinema/" class="magnetic-item not-hide-cursor" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a></div>
+														</li>
+														<li>
+															<div class="magnetic-wrap"><a href="https://www.linkedin.com/company/sp-cinemas/" class="magnetic-item not-hide-cursor" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a></div>
+														</li>
+													</ul>
+												</div>
+												<!-- End social buttons -->
+											</li>
+										</ul>
+										<!-- End contact info -->
+
+									</div> <!-- /.tt-col -->
+
+									<div class="tt-col-lg-1">
+									</div> <!-- /.tt-col -->
+
+									<div class="tt-col-lg-7">
+
+										<!-- Begin form
+											================
+											* Use class "tt-form-filled" or "tt-form-minimal" to change form style.
+											* Use class "tt-form-sm" or "tt-form-lg" to change form size (no class = default size).
+											-->
+										<form id="tt-contact-form" class="tt-form-filled anim-fadeinup">
+
+											<!-- Begin hidden required fields (https://github.com/agragregra/uniMail) -->
+											<input type="hidden" name="project_name" value="spcinemas.in">
+											<input type="hidden" name="admin_email" value="info@spcinemas.in">
+											<input type="hidden" name="form_subject" value="Message from spcinemas.in">
+											<!-- End Hidden Required Fields -->
+
+											<div class="tt-row">
+												<div class="tt-col-md-6">
+
+													<div class="tt-form-group">
+														<label>Your Name <span class="required">*</span></label>
+														<input class="tt-form-control" type="text" name="Name" placeholder="" required>
+													</div>
+
+												</div> <!-- /.tt-col -->
+
+												<div class="tt-col-md-6">
+
+													<div class="tt-form-group">
+														<label>Email address <span class="required">*</span></label>
+														<input class="tt-form-control" type="email" name="Email" placeholder="" required>
+													</div>
+
+												</div> <!-- /.tt-col -->
+											</div> <!-- /.tt-row -->
+
+											<div class="tt-form-group">
+												<label>Subject <span class="required">*</span></label>
+												<input class="tt-form-control" type="text" name="Subject" placeholder="" required>
+											</div>
+
+											<div class="tt-form-group">
+												<label>Select an option <span class="required">*</span></label>
+												<select class="tt-form-control" name="option" required>
+													<option value="" disabled selected>Please choose an option</option>
+													<option value="Say Hello">Say hello</option>
+													<option value="New Project">New project</option>
+													<option value="Feedback">Feedback</option>
+													<option value="Other">Other</option>
+												</select>
+											</div>
+
+											<div class="tt-form-group">
+												<label>Your Message <span class="required">*</span></label>
+												<textarea class="tt-form-control" rows="5" name="Message" placeholder="" required></textarea>
+											</div>
+
+											<small class="tt-form-text"><em>Fields marked with an asterisk (*) are required!</em></small>
+
+											<button type="submit" class="tt-btn tt-btn-primary margin-top-30">
+												<div data-hover="Send Message">Send Message</div>
+												<span class="tt-btn-icon"><i class="fas fa-paper-plane"></i></span>
+											</button>
+										</form>
+										<!-- End form -->
+
+									</div> <!-- /.tt-col -->
+								</div> <!-- /.tt-row -->
+								<!-- End contact content -->
 
 							</div> <!-- /.tt-section-inner -->
 						</div>
@@ -735,16 +853,7 @@ function youtube_embed_url($url) {
 							<!-- Begin footer column 
 							========================= -->
 							<div class="footer-col tt-align-center order-m-last">
-								<div class="footer-col-inner">
-
-									<div class="tt-copyright text-gray">
-										<a href="http://spcinemas.in/" target="_blank" rel="noopener" class="tt-btn tt-btn-link">
-											<span class="tt-btn-icon"><i class="far fa-copyright"></i></span>
-											<div data-hover="spcinemas.in">spcinemas.in</div>
-										</a>
-									</div>
-
-								</div> <!-- /.footer-col-inner -->
+								
 							</div>
 							<!-- Begin footer column -->
 
@@ -753,18 +862,12 @@ function youtube_embed_url($url) {
 							<div class="footer-col tt-align-center-right">
 								<div class="footer-col-inner">
 
-									<div class="footer-social">
-										<div class="footer-social-text"><span>Follow</span><i class="fas fa-share-alt"></i></div>
-										<div class="social-buttons">
-											<ul>
-												<li><a href="#" class="magnetic-item" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a></li>
-												<li><a href="#" class="magnetic-item" target="_blank" rel="noopener"><i class="fab fa-twitter"></i></a></li>
-												<li><a href="#" class="magnetic-item" target="_blank" rel="noopener"><i class="fab fa-youtube"></i></a></li>
-												<li><a href="#" class="magnetic-item" target="_blank" rel="noopener"><i class="fab fa-dribbble"></i></a></li>
-												<li><a href="#" class="magnetic-item" target="_blank" rel="noopener"><i class="fab fa-behance"></i></a></li>
-											</ul>
-										</div> <!-- /.social-buttons -->
-									</div> <!-- /.footer-social -->
+									<div class="tt-copyright text-gray">
+										<a href="http://spcinemas.in/" target="_blank" rel="noopener" class="tt-btn tt-btn-link">
+											<span class="tt-btn-icon"><i class="far fa-copyright"></i></span>
+											<div data-hover="spcinemas.in">spcinemas.in</div>
+										</a>
+									</div>
 
 								</div> <!-- /.footer-col-inner -->
 							</div>
