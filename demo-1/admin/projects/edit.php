@@ -14,7 +14,7 @@ if ($row) {
     $videos_stmt = $connect->prepare("SELECT title, youtube_url FROM project_videos WHERE project_id = ? ORDER BY sort_order ASC, id ASC");
     $videos_stmt->execute([$id]);
 
-    $reviews_stmt = $connect->prepare("SELECT publication, review_url, logo FROM project_reviews WHERE project_id = ? ORDER BY sort_order ASC, id ASC");
+    $reviews_stmt = $connect->prepare("SELECT publication, review_url FROM project_reviews WHERE project_id = ? ORDER BY sort_order ASC, id ASC");
     $reviews_stmt->execute([$id]);
 
     $output = [

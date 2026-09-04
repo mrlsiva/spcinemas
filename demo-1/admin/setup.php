@@ -91,18 +91,30 @@ CREATE TABLE IF NOT EXISTS project_reviews (
     project_id INT NOT NULL,
     publication VARCHAR(150) NOT NULL,
     review_url VARCHAR(500) NOT NULL,
-    logo VARCHAR(255) NULL,
     sort_order INT NOT NULL DEFAULT 0,
     FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE
 )");
 
-// Add the "logo" column to a project_reviews table created before this field existed.
+// Uploaded logos are keyed by publication name and shared by every review that uses that name,
+// so uploading a logo once covers it everywhere (rather than per review row).
+$connect->exec("
+CREATE TABLE IF NOT EXISTS publication_logos (
+    publication VARCHAR(150) PRIMARY KEY,
+    logo VARCHAR(255) NOT NULL,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+)");
+
+// Migrate away from an earlier design that stored the logo per review row, then drop that column.
 $has_review_logo_column = (int)$connect->query("
     SELECT COUNT(*) FROM information_schema.COLUMNS
     WHERE TABLE_SCHEMA = 'spcinemas' AND TABLE_NAME = 'project_reviews' AND COLUMN_NAME = 'logo'
 ")->fetchColumn();
-if ($has_review_logo_column === 0) {
-    $connect->exec("ALTER TABLE project_reviews ADD COLUMN logo VARCHAR(255) NULL AFTER review_url");
+if ($has_review_logo_column > 0) {
+    $connect->exec("
+        INSERT IGNORE INTO publication_logos (publication, logo)
+        SELECT publication, logo FROM project_reviews WHERE logo IS NOT NULL AND logo <> ''
+    ");
+    $connect->exec("ALTER TABLE project_reviews DROP COLUMN logo");
 }
 
 echo "<p>Tables ready.</p>";

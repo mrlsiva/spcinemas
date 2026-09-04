@@ -1,7 +1,10 @@
 <?php
 require_once __DIR__ . '/auth.php';
 require_admin_login();
+require __DIR__ . '/Dbconfig.php';
 $publications = require __DIR__ . '/publications.php';
+$custom_publication_names = $connect->query("SELECT publication FROM publication_logos")->fetchAll(PDO::FETCH_COLUMN);
+$all_publication_names = array_values(array_unique(array_merge(array_keys($publications), $custom_publication_names)));
 ?>
 <!DOCTYPE html>
 <html>
@@ -256,7 +259,7 @@ $publications = require __DIR__ . '/publications.php';
  </div>
 
 <script>
-var PUBLICATIONS = <?php echo json_encode(array_keys($publications)); ?>;
+var PUBLICATIONS = <?php echo json_encode($all_publication_names); ?>;
 </script>
 <script>
 $(document).ready(function () {
@@ -288,37 +291,92 @@ $(document).ready(function () {
   $('#projects_videos_rows').append($row);
  }
 
- var REVIEW_LOGO_PATH = '../assets/img/review/uploads/';
+ var REVIEW_LOGO_PATH = '../assets/img/review/';
 
- function addReviewRow(publication, url, logo) {
+ // Logos are keyed by publication name (server-side, in publication_logos), not by review row:
+ // upload one once and it's reused by every review that uses that name, in every project.
+ function resolveReviewLogoPreview($row, publication) {
+  var $preview = $row.find('.repeat-row-logo-preview');
+  publication = (publication || '').trim();
+  if (!publication) {
+   $preview.hide();
+   return;
+  }
+  $.ajax({
+   url: 'projects/publication_logo_lookup.php',
+   method: 'POST',
+   data: { publication: publication },
+   dataType: 'json',
+   success: function (res) {
+    if (res && res.logo) {
+     $preview.attr('src', REVIEW_LOGO_PATH + res.logo).show();
+    } else {
+     $preview.hide();
+    }
+   }
+  });
+ }
+
+ function addReviewRow(publication, url) {
   var $row = $(
    '<div class="repeat-row">' +
-    '<input type="text" name="reviews_publication[]" class="form-control" placeholder="Publication (e.g. Wikipedia)" list="projects_publications_list">' +
+    '<input type="text" name="reviews_publication[]" class="form-control repeat-row-publication" placeholder="Publication (e.g. Wikipedia)" list="projects_publications_list">' +
     '<input type="text" name="reviews_url[]" class="form-control" placeholder="Review URL">' +
     '<img class="repeat-row-logo-preview img-thumbnail" src="" alt="">' +
-    '<input type="file" name="reviews_logo[]" class="form-control repeat-row-logo-input" accept=".jpg,.jpeg,.png,.gif,.webp,.svg" title="Upload logo (optional, overrides the default logo for this publication)">' +
-    '<input type="hidden" name="reviews_logo_current[]" value="">' +
+    '<input type="file" class="repeat-row-logo-input" accept=".jpg,.jpeg,.png,.gif,.webp,.svg" title="Upload/replace the logo for this publication name (applies everywhere that name is used)">' +
     '<button type="button" class="btn btn-danger btn-xs repeat-row-remove"><i class="glyphicon glyphicon-remove"></i></button>' +
    '</div>'
   );
-  $row.find('input[name="reviews_publication[]"]').val(publication || '');
+  $row.find('.repeat-row-publication').val(publication || '');
   $row.find('input[name="reviews_url[]"]').val(url || '');
-  $row.find('input[name="reviews_logo_current[]"]').val(logo || '');
-  if (logo) {
-   $row.find('.repeat-row-logo-preview').attr('src', REVIEW_LOGO_PATH + logo).show();
-  }
   $('#projects_reviews_rows').append($row);
+  resolveReviewLogoPreview($row, publication);
  }
 
+ $(document).on('change blur', '.repeat-row-publication', function () {
+  resolveReviewLogoPreview($(this).closest('.repeat-row'), $(this).val());
+ });
+
  $(document).on('change', '.repeat-row-logo-input', function () {
+  var $row = $(this).closest('.repeat-row');
+  var publication = $row.find('.repeat-row-publication').val().trim();
   var file = this.files && this.files[0];
-  var $preview = $(this).closest('.repeat-row').find('.repeat-row-logo-preview');
+  var $input = $(this);
   if (!file) {
    return;
   }
-  var reader = new FileReader();
-  reader.onload = function (e) { $preview.attr('src', e.target.result).show(); };
-  reader.readAsDataURL(file);
+  if (!publication) {
+   alert('Enter the publication name first, then choose a logo.');
+   $input.val('');
+   return;
+  }
+  var formData = new FormData();
+  formData.append('publication', publication);
+  formData.append('logo', file);
+  $.ajax({
+   url: 'projects/publication_logo_upload.php',
+   method: 'POST',
+   data: formData,
+   processData: false,
+   contentType: false,
+   dataType: 'json',
+   success: function (res) {
+    if (res && res.logo) {
+     $row.find('.repeat-row-logo-preview').attr('src', REVIEW_LOGO_PATH + res.logo).show();
+     if (PUBLICATIONS.indexOf(publication) === -1) {
+      PUBLICATIONS.push(publication);
+      $('#projects_publications_list').append($('<option></option>').val(publication));
+     }
+    } else {
+     alert((res && res.error) || 'Upload failed.');
+    }
+    $input.val('');
+   },
+   error: function () {
+    alert('Upload failed.');
+    $input.val('');
+   }
+  });
  });
 
  $('#projects_add_video').on('click', function () { addVideoRow(); });
@@ -417,7 +475,7 @@ $(document).ready(function () {
      $('#projects_status').val(data.status);
      $('#projects_videos_rows, #projects_reviews_rows').empty();
      (data.videos || []).forEach(function (v) { addVideoRow(v.title, v.youtube_url); });
-     (data.reviews || []).forEach(function (r) { addReviewRow(r.publication, r.review_url, r.logo); });
+     (data.reviews || []).forEach(function (r) { addReviewRow(r.publication, r.review_url); });
     }
 
     if (sections[section].hasImage) {

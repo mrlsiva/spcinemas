@@ -1,6 +1,9 @@
 <?php
 require __DIR__ . '/admin/Dbconfig.php';
 $publications = require __DIR__ . '/admin/publications.php';
+foreach ($connect->query("SELECT publication, logo FROM publication_logos") as $custom_logo_row) {
+    $publications[$custom_logo_row['publication']] = 'uploads/' . $custom_logo_row['logo'];
+}
 
 $banner_slides = $connect->query("SELECT * FROM banner_slides WHERE status = 'enabled' ORDER BY sort_order ASC, id ASC")->fetchAll();
 $team_members = $connect->query("SELECT * FROM team_members WHERE status = 'enabled' ORDER BY sort_order ASC, id ASC")->fetchAll();
@@ -531,13 +534,10 @@ function youtube_embed_url($url) {
 									<p><strong>Reviews:</strong></p>
 									<div class="tt-project-popup-reviews">
 										<?php foreach ($project_reviews[$project['id']] as $review):
-											$logo_path = !empty($review['logo'])
-													? 'assets/img/review/uploads/' . $review['logo']
-													: (isset($publications[$review['publication']]) ? 'assets/img/review/' . $publications[$review['publication']] : null);
-										?>
+											$logo = $publications[$review['publication']] ?? null;																																				?>
 										<a href="<?php echo htmlspecialchars($review['review_url'], ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener">
-											<?php if ($logo_path): ?>
-											<img src="<?php echo htmlspecialchars($logo_path, ENT_QUOTES, 'UTF-8'); ?>" alt="<?php echo htmlspecialchars($review['publication'], ENT_QUOTES, 'UTF-8'); ?>">
+											<?php if ($logo): ?>
+											<img src="assets/img/review/<?php echo htmlspecialchars($logo, ENT_QUOTES, 'UTF-8'); ?>" alt="<?php echo htmlspecialchars($review['publication'], ENT_QUOTES, 'UTF-8'); ?>">
 											<?php else: ?>
 											<span class="tt-project-popup-review-text"><?php echo htmlspecialchars($review['publication'], ENT_QUOTES, 'UTF-8'); ?></span>
 											<?php endif; ?>
