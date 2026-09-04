@@ -3,7 +3,11 @@ require_once __DIR__ . '/auth.php';
 require_admin_login();
 require __DIR__ . '/Dbconfig.php';
 $publications = require __DIR__ . '/publications.php';
-$custom_publication_names = $connect->query("SELECT publication FROM publication_logos")->fetchAll(PDO::FETCH_COLUMN);
+try {
+    $custom_publication_names = $connect->query("SELECT publication FROM publication_logos")->fetchAll(PDO::FETCH_COLUMN);
+} catch (PDOException $e) {
+    $custom_publication_names = [];
+}
 $all_publication_names = array_values(array_unique(array_merge(array_keys($publications), $custom_publication_names)));
 ?>
 <!DOCTYPE html>

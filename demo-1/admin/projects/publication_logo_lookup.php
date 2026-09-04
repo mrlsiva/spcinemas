@@ -11,9 +11,13 @@ $publication = trim($_POST['publication'] ?? '');
 $logo = null;
 
 if ($publication !== '') {
-    $stmt = $connect->prepare("SELECT logo FROM publication_logos WHERE publication = ?");
-    $stmt->execute([$publication]);
-    $custom_logo = $stmt->fetchColumn();
+    try {
+        $stmt = $connect->prepare("SELECT logo FROM publication_logos WHERE publication = ?");
+        $stmt->execute([$publication]);
+        $custom_logo = $stmt->fetchColumn();
+    } catch (PDOException $e) {
+        $custom_logo = false;
+    }
     if ($custom_logo) {
         $logo = 'uploads/' . $custom_logo;
     } else {

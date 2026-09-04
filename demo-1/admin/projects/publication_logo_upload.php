@@ -40,7 +40,12 @@ if (!move_uploaded_file($_FILES['logo']['tmp_name'], $upload_dir . $new_name)) {
     exit;
 }
 
-$stmt = $connect->prepare("INSERT INTO publication_logos (publication, logo) VALUES (?, ?) ON DUPLICATE KEY UPDATE logo = VALUES(logo)");
-$stmt->execute([$publication, $new_name]);
+try {
+    $stmt = $connect->prepare("INSERT INTO publication_logos (publication, logo) VALUES (?, ?) ON DUPLICATE KEY UPDATE logo = VALUES(logo)");
+    $stmt->execute([$publication, $new_name]);
+} catch (PDOException $e) {
+    echo json_encode(['error' => 'Database not set up yet: run the publication_logos table SQL in phpMyAdmin first.']);
+    exit;
+}
 
 echo json_encode(['logo' => 'uploads/' . $new_name]);

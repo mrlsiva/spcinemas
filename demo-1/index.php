@@ -1,8 +1,12 @@
 <?php
 require __DIR__ . '/admin/Dbconfig.php';
 $publications = require __DIR__ . '/admin/publications.php';
-foreach ($connect->query("SELECT publication, logo FROM publication_logos") as $custom_logo_row) {
-    $publications[$custom_logo_row['publication']] = 'uploads/' . $custom_logo_row['logo'];
+try {
+    foreach ($connect->query("SELECT publication, logo FROM publication_logos") as $custom_logo_row) {
+        $publications[$custom_logo_row['publication']] = 'uploads/' . $custom_logo_row['logo'];
+    }
+} catch (PDOException $e) {
+    // publication_logos table not migrated on this environment yet; fall back to the built-in list.
 }
 
 $banner_slides = $connect->query("SELECT * FROM banner_slides WHERE status = 'enabled' ORDER BY sort_order ASC, id ASC")->fetchAll();
