@@ -23,6 +23,8 @@ $publications = require __DIR__ . '/publications.php';
   .repeat-row .form-control { flex: 1 1 auto; }
   .repeat-row-remove { flex: 0 0 auto; }
   .repeat-section-label { display: flex; align-items: center; justify-content: space-between; }
+  .repeat-row-logo-input { flex: 1 1 150px; }
+  .repeat-row-logo-preview { flex: 0 0 auto; max-height: 30px; max-width: 60px; display: none; }
  </style>
 </head>
 <body>
@@ -286,18 +288,38 @@ $(document).ready(function () {
   $('#projects_videos_rows').append($row);
  }
 
- function addReviewRow(publication, url) {
+ var REVIEW_LOGO_PATH = '../assets/img/review/uploads/';
+
+ function addReviewRow(publication, url, logo) {
   var $row = $(
    '<div class="repeat-row">' +
     '<input type="text" name="reviews_publication[]" class="form-control" placeholder="Publication (e.g. Wikipedia)" list="projects_publications_list">' +
     '<input type="text" name="reviews_url[]" class="form-control" placeholder="Review URL">' +
+    '<img class="repeat-row-logo-preview img-thumbnail" src="" alt="">' +
+    '<input type="file" name="reviews_logo[]" class="form-control repeat-row-logo-input" accept=".jpg,.jpeg,.png,.gif,.webp,.svg" title="Upload logo (optional, overrides the default logo for this publication)">' +
+    '<input type="hidden" name="reviews_logo_current[]" value="">' +
     '<button type="button" class="btn btn-danger btn-xs repeat-row-remove"><i class="glyphicon glyphicon-remove"></i></button>' +
    '</div>'
   );
-  $row.find('input').eq(0).val(publication || '');
-  $row.find('input').eq(1).val(url || '');
+  $row.find('input[name="reviews_publication[]"]').val(publication || '');
+  $row.find('input[name="reviews_url[]"]').val(url || '');
+  $row.find('input[name="reviews_logo_current[]"]').val(logo || '');
+  if (logo) {
+   $row.find('.repeat-row-logo-preview').attr('src', REVIEW_LOGO_PATH + logo).show();
+  }
   $('#projects_reviews_rows').append($row);
  }
+
+ $(document).on('change', '.repeat-row-logo-input', function () {
+  var file = this.files && this.files[0];
+  var $preview = $(this).closest('.repeat-row').find('.repeat-row-logo-preview');
+  if (!file) {
+   return;
+  }
+  var reader = new FileReader();
+  reader.onload = function (e) { $preview.attr('src', e.target.result).show(); };
+  reader.readAsDataURL(file);
+ });
 
  $('#projects_add_video').on('click', function () { addVideoRow(); });
  $('#projects_add_review').on('click', function () { addReviewRow(); });
@@ -395,7 +417,7 @@ $(document).ready(function () {
      $('#projects_status').val(data.status);
      $('#projects_videos_rows, #projects_reviews_rows').empty();
      (data.videos || []).forEach(function (v) { addVideoRow(v.title, v.youtube_url); });
-     (data.reviews || []).forEach(function (r) { addReviewRow(r.publication, r.review_url); });
+     (data.reviews || []).forEach(function (r) { addReviewRow(r.publication, r.review_url, r.logo); });
     }
 
     if (sections[section].hasImage) {

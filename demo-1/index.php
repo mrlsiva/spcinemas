@@ -531,11 +531,13 @@ function youtube_embed_url($url) {
 									<p><strong>Reviews:</strong></p>
 									<div class="tt-project-popup-reviews">
 										<?php foreach ($project_reviews[$project['id']] as $review):
-											$logo = $publications[$review['publication']] ?? null;
+											$logo_path = !empty($review['logo'])
+													? 'assets/img/review/uploads/' . $review['logo']
+													: (isset($publications[$review['publication']]) ? 'assets/img/review/' . $publications[$review['publication']] : null);
 										?>
 										<a href="<?php echo htmlspecialchars($review['review_url'], ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener">
-											<?php if ($logo): ?>
-											<img src="assets/img/review/<?php echo htmlspecialchars($logo, ENT_QUOTES, 'UTF-8'); ?>" alt="<?php echo htmlspecialchars($review['publication'], ENT_QUOTES, 'UTF-8'); ?>">
+											<?php if ($logo_path): ?>
+											<img src="<?php echo htmlspecialchars($logo_path, ENT_QUOTES, 'UTF-8'); ?>" alt="<?php echo htmlspecialchars($review['publication'], ENT_QUOTES, 'UTF-8'); ?>">
 											<?php else: ?>
 											<span class="tt-project-popup-review-text"><?php echo htmlspecialchars($review['publication'], ENT_QUOTES, 'UTF-8'); ?></span>
 											<?php endif; ?>

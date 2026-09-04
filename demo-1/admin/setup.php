@@ -91,9 +91,19 @@ CREATE TABLE IF NOT EXISTS project_reviews (
     project_id INT NOT NULL,
     publication VARCHAR(150) NOT NULL,
     review_url VARCHAR(500) NOT NULL,
+    logo VARCHAR(255) NULL,
     sort_order INT NOT NULL DEFAULT 0,
     FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE
 )");
+
+// Add the "logo" column to a project_reviews table created before this field existed.
+$has_review_logo_column = (int)$connect->query("
+    SELECT COUNT(*) FROM information_schema.COLUMNS
+    WHERE TABLE_SCHEMA = 'spcinemas' AND TABLE_NAME = 'project_reviews' AND COLUMN_NAME = 'logo'
+")->fetchColumn();
+if ($has_review_logo_column === 0) {
+    $connect->exec("ALTER TABLE project_reviews ADD COLUMN logo VARCHAR(255) NULL AFTER review_url");
+}
 
 echo "<p>Tables ready.</p>";
 
