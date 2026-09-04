@@ -234,6 +234,7 @@ $publications = require __DIR__ . '/publications.php';
         <button type="button" class="btn btn-default btn-xs" id="projects_add_review"><i class="glyphicon glyphicon-plus"></i> Add review</button>
        </div>
        <div id="projects_reviews_rows"></div>
+       <datalist id="projects_publications_list"></datalist>
       </div>
       <div class="form-group">
        <label>Status</label>
@@ -257,6 +258,10 @@ var PUBLICATIONS = <?php echo json_encode(array_keys($publications)); ?>;
 </script>
 <script>
 $(document).ready(function () {
+
+ PUBLICATIONS.forEach(function (name) {
+  $('#projects_publications_list').append($('<option></option>').val(name));
+ });
 
  // One entry per content section. hasImage sections get a file input +
  // "current image" preview handled generically below.
@@ -282,18 +287,15 @@ $(document).ready(function () {
  }
 
  function addReviewRow(publication, url) {
-  var $select = $('<select name="reviews_publication[]" class="form-control"></select>');
-  PUBLICATIONS.forEach(function (name) {
-   $select.append($('<option></option>').val(name).text(name));
-  });
-  if (publication) {
-   $select.val(publication);
-  }
-  var $row = $('<div class="repeat-row"></div>')
-   .append($select)
-   .append('<input type="text" name="reviews_url[]" class="form-control" placeholder="Review URL">')
-   .append('<button type="button" class="btn btn-danger btn-xs repeat-row-remove"><i class="glyphicon glyphicon-remove"></i></button>');
-  $row.find('input').val(url || '');
+  var $row = $(
+   '<div class="repeat-row">' +
+    '<input type="text" name="reviews_publication[]" class="form-control" placeholder="Publication (e.g. Wikipedia)" list="projects_publications_list">' +
+    '<input type="text" name="reviews_url[]" class="form-control" placeholder="Review URL">' +
+    '<button type="button" class="btn btn-danger btn-xs repeat-row-remove"><i class="glyphicon glyphicon-remove"></i></button>' +
+   '</div>'
+  );
+  $row.find('input').eq(0).val(publication || '');
+  $row.find('input').eq(1).val(url || '');
   $('#projects_reviews_rows').append($row);
  }
 
