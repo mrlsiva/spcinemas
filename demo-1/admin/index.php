@@ -109,12 +109,12 @@ $publications = require __DIR__ . '/publications.php';
       </div>
       <div class="form-group">
        <label>Title</label>
-       <input type="text" name="title" id="banner_title" class="form-control" required />
+       <input type="text" name="title" id="banner_title" class="form-control" />
        <small class="text-muted">You can use &lt;br&gt; to force a line break.</small>
       </div>
       <div class="form-group">
        <label>Category (caption label)</label>
-       <input type="text" name="category" id="banner_category" class="form-control" required />
+       <input type="text" name="category" id="banner_category" class="form-control" />
       </div>
       <div class="form-group">
        <label>Link URL</label>
