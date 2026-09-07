@@ -1,41 +1,18 @@
 <?php
 require __DIR__ . '/admin/Dbconfig.php';
-$publications = require __DIR__ . '/admin/publications.php';
-try {
-    foreach ($connect->query("SELECT publication, logo FROM publication_logos") as $custom_logo_row) {
-        $publications[$custom_logo_row['publication']] = 'uploads/' . $custom_logo_row['logo'];
-    }
-} catch (PDOException $e) {
-    // publication_logos table not migrated on this environment yet; fall back to the built-in list.
-}
 
 $banner_slides = $connect->query("SELECT * FROM banner_slides WHERE status = 'enabled' ORDER BY sort_order ASC, id ASC")->fetchAll();
 $team_members = $connect->query("SELECT * FROM team_members WHERE status = 'enabled' ORDER BY sort_order ASC, id ASC")->fetchAll();
 $projects = $connect->query("SELECT * FROM projects WHERE status = 'enabled' ORDER BY sort_order ASC, id ASC")->fetchAll();
 
-// Group each project's popup videos/reviews by project_id for O(1) lookup in the loop below.
-$project_videos = [];
-foreach ($connect->query("SELECT * FROM project_videos ORDER BY sort_order ASC, id ASC") as $row) {
-    $project_videos[$row['project_id']][] = $row;
-}
-$project_reviews = [];
-foreach ($connect->query("SELECT * FROM project_reviews ORDER BY sort_order ASC, id ASC") as $row) {
-    $project_reviews[$row['project_id']][] = $row;
-}
+// Each project's popup (synopsis/videos/reviews) is fetched on demand from project_popup.php
+// when its card is clicked, instead of being rendered (and its video iframes loaded) up front
+// for all projects on every page load.
 
 // Preserves the theme's "<br>" line-break convention in titles while still
 // escaping everything else, so admin-entered text can't inject markup/scripts.
 function tt_title($str) {
     return str_replace('&lt;br&gt;', '<br>', htmlspecialchars($str, ENT_QUOTES, 'UTF-8'));
-}
-
-// Accepts whatever YouTube URL form an admin pastes (watch?v=, youtu.be/, or an
-// already-canonical /embed/ link) and normalizes it to an embeddable URL.
-function youtube_embed_url($url) {
-    if (preg_match('~(?:youtu\.be/|youtube\.com/(?:embed/|watch\?v=|watch\?.*&v=))([A-Za-z0-9_-]{6,})~', $url, $m)) {
-        return 'https://www.youtube.com/embed/' . $m[1];
-    }
-    return htmlspecialchars($url, ENT_QUOTES, 'UTF-8');
 }
 ?>
 <!DOCTYPE html>
@@ -63,6 +40,11 @@ function youtube_embed_url($url) {
 		<!-- Favicon (http://www.favicon-generator.org/) -->
 		<link rel="shortcut icon" href="favicon.png" type="image/x-icon">
 		<link rel="icon" href="favicon.png" type="image/x-icon">
+
+		<?php if (!empty($banner_slides)): ?>
+		<!-- Prioritize the first (immediately visible) banner slide's image -->
+		<link rel="preload" as="image" href="assets/img/portfolio/1920/<?php echo htmlspecialchars($banner_slides[0]['image'], ENT_QUOTES, 'UTF-8'); ?>" fetchpriority="high">
+		<?php endif; ?>
 
 		<!-- Your Google Analytics code goes here -->
 
@@ -99,6 +81,26 @@ function youtube_embed_url($url) {
 			.tt-project-popup-reviews { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 20px; }
 			.tt-project-popup-reviews img { max-height: 40px; max-width: 120px; }
 			.tt-project-popup-review-text { color: var(--tt-main-color); text-decoration: underline; }
+
+			/* Skeleton shimmer shown while a project's popup content, or a grid image, is still loading */
+			@keyframes tt-skeleton-loading {
+				0% { background-position: 100% 50%; }
+				100% { background-position: 0 50%; }
+			}
+			.tt-skeleton-line {
+				height: 14px;
+				margin-bottom: 12px;
+				border-radius: 4px;
+				background: linear-gradient(90deg, rgba(255, 255, 255, 0.04) 25%, rgba(255, 255, 255, 0.1) 37%, rgba(255, 255, 255, 0.04) 63%);
+				background-size: 400% 100%;
+				animation: tt-skeleton-loading 1.4s ease infinite;
+			}
+			.tt-skeleton-line-title { height: 28px; width: 50%; }
+			.pgi-image img {
+				background: linear-gradient(90deg, rgba(255, 255, 255, 0.04) 25%, rgba(255, 255, 255, 0.1) 37%, rgba(255, 255, 255, 0.04) 63%);
+				background-size: 400% 100%;
+				animation: tt-skeleton-loading 1.4s ease infinite;
+			}
 		</style>
 
 	</head>
@@ -246,14 +248,18 @@ function youtube_embed_url($url) {
 							<div class="swiper-wrapper">
 
 								<!-- Banner slides are managed from admin/index.php (Home Banner tab) -->
-								<?php foreach ($banner_slides as $slide): ?>
+								<?php foreach ($banner_slides as $slide_index => $slide): $is_first_slide = ($slide_index === 0); ?>
 								<div class="swiper-slide" data-url="<?php echo htmlspecialchars($slide['link_url'], ENT_QUOTES, 'UTF-8'); ?>" data-title="<?php echo tt_title($slide['title']); ?>" data-category="<?php echo htmlspecialchars($slide['category'], ENT_QUOTES, 'UTF-8'); ?>">
 									<div class="tt-portfolio-slider-item cover-opacity-4" data-swiper-parallax="50%">
 										<picture>
 											<?php if (!empty($slide['mobile_image'])): ?>
-											<source media="(max-width: 767px)" data-srcset="assets/img/portfolio/mobile/<?php echo htmlspecialchars($slide['mobile_image'], ENT_QUOTES, 'UTF-8'); ?>">
+											<source media="(max-width: 767px)" <?php echo $is_first_slide ? 'srcset' : 'data-srcset'; ?>="assets/img/portfolio/mobile/<?php echo htmlspecialchars($slide['mobile_image'], ENT_QUOTES, 'UTF-8'); ?>">
 											<?php endif; ?>
+											<?php if ($is_first_slide): ?>
+											<img class="tt-psi-image" src="assets/img/portfolio/1920/<?php echo htmlspecialchars($slide['image'], ENT_QUOTES, 'UTF-8'); ?>" fetchpriority="high" alt="Image">
+											<?php else: ?>
 											<img class="tt-psi-image swiper-lazy" data-src="assets/img/portfolio/1920/<?php echo htmlspecialchars($slide['image'], ENT_QUOTES, 'UTF-8'); ?>" alt="Image">
+											<?php endif; ?>
 										</picture>
 									</div> <!-- /.tt-portfolio-slider-item -->
 								</div>
@@ -519,38 +525,6 @@ function youtube_embed_url($url) {
 
 								</div>
 								<!-- End portfolio grid -->
-
-								<!-- Hidden per-project popup content, cloned into #tt-project-modal on click (see script near </body>) -->
-								<?php foreach ($projects as $project): ?>
-								<div class="tt-project-popup-source" data-project-id="<?php echo (int)$project['id']; ?>" style="display:none">
-									<h2><?php echo htmlspecialchars($project['title'], ENT_QUOTES, 'UTF-8'); ?></h2>
-									<?php if (trim((string)$project['synopsis']) !== ''): ?>
-									<p><strong>Synopsis:</strong></p>
-									<p><?php echo nl2br(htmlspecialchars($project['synopsis'], ENT_QUOTES, 'UTF-8')); ?></p>
-									<?php endif; ?>
-									<?php foreach ($project_videos[$project['id']] ?? [] as $video): ?>
-									<p><strong><?php echo htmlspecialchars($video['title'], ENT_QUOTES, 'UTF-8'); ?>:</strong></p>
-									<div class="tt-project-popup-video">
-										<iframe src="<?php echo youtube_embed_url($video['youtube_url']); ?>" title="<?php echo htmlspecialchars($video['title'], ENT_QUOTES, 'UTF-8'); ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-									</div>
-									<?php endforeach; ?>
-									<?php if (!empty($project_reviews[$project['id']])): ?>
-									<p><strong>Reviews:</strong></p>
-									<div class="tt-project-popup-reviews">
-										<?php foreach ($project_reviews[$project['id']] as $review):
-											$logo = $publications[$review['publication']] ?? null;																																				?>
-										<a href="<?php echo htmlspecialchars($review['review_url'], ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener">
-											<?php if ($logo): ?>
-											<img src="assets/img/review/<?php echo htmlspecialchars($logo, ENT_QUOTES, 'UTF-8'); ?>" alt="<?php echo htmlspecialchars($review['publication'], ENT_QUOTES, 'UTF-8'); ?>">
-											<?php else: ?>
-											<span class="tt-project-popup-review-text"><?php echo htmlspecialchars($review['publication'], ENT_QUOTES, 'UTF-8'); ?></span>
-											<?php endif; ?>
-										</a>
-										<?php endforeach; ?>
-									</div>
-									<?php endif; ?>
-								</div>
-								<?php endforeach; ?>
 
 								<!-- Shared project popup modal shell -->
 								<div id="tt-project-modal" class="tt-project-modal">
@@ -865,12 +839,33 @@ function youtube_embed_url($url) {
 					$("#scroll-container").before($modal);
 				}
 
+				var popupCache = {}; // avoids re-fetching a project's popup content on repeat opens
+				var openRequestId = 0; // guards against a slower, older request overwriting a newer one
+
 				function openProjectPopup(id) {
-					var $source = $('.tt-project-popup-source[data-project-id="' + id + '"]');
-					if (!$source.length) return;
-					$modalBody.html($source.html());
 					$modal.addClass("is-open");
 					$("html").addClass("tt-no-scroll");
+
+					if (popupCache[id]) {
+						$modalBody.html(popupCache[id]);
+						return;
+					}
+
+					var requestId = ++openRequestId;
+					$modalBody.html('<div class="tt-skeleton-line tt-skeleton-line-title"></div><div class="tt-skeleton-line"></div><div class="tt-skeleton-line"></div><div class="tt-skeleton-line" style="width:70%"></div>');
+
+					$.get("project_popup.php", { id: id })
+						.done(function (html) {
+							popupCache[id] = html;
+							if (requestId === openRequestId) {
+								$modalBody.html(html);
+							}
+						})
+						.fail(function () {
+							if (requestId === openRequestId) {
+								$modalBody.html("<p>Sorry, this project couldn't be loaded.</p>");
+							}
+						});
 				}
 
 				function closeProjectPopup() {
