@@ -253,7 +253,7 @@ function youtube_embed_url($url) {
 											<?php if (!empty($slide['mobile_image'])): ?>
 											<source media="(max-width: 767px)" data-srcset="assets/img/portfolio/mobile/<?php echo htmlspecialchars($slide['mobile_image'], ENT_QUOTES, 'UTF-8'); ?>">
 											<?php endif; ?>
-											<img class="tt-psi-image swiper-lazy" src="assets/img/low-qlt-thumb.jpg" data-src="assets/img/portfolio/1920/<?php echo htmlspecialchars($slide['image'], ENT_QUOTES, 'UTF-8'); ?>" alt="Image">
+											<img class="tt-psi-image swiper-lazy" data-src="assets/img/portfolio/1920/<?php echo htmlspecialchars($slide['image'], ENT_QUOTES, 'UTF-8'); ?>" alt="Image">
 										</picture>
 									</div> <!-- /.tt-portfolio-slider-item -->
 								</div>

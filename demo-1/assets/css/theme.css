@@ -4959,6 +4959,18 @@ img.tt-psi-image {
 	object-position: 50% 50%;
 }
 
+/* Skeleton shimmer shown while a swiper-lazy image's data-src is still loading */
+.swiper-lazy:not(.swiper-lazy-loaded) {
+	background: linear-gradient(90deg, rgba(255, 255, 255, 0.04) 25%, rgba(255, 255, 255, 0.1) 37%, rgba(255, 255, 255, 0.04) 63%);
+	background-size: 400% 100%;
+	animation: tt-skeleton-loading 1.4s ease infinite;
+}
+
+@keyframes tt-skeleton-loading {
+	0% { background-position: 100% 50%; }
+	100% { background-position: 0 50%; }
+}
+
 /* Slide opasity cover (for prev/next slides) */
 .tt-portfolio-slider-item::after {
 	position: absolute;
