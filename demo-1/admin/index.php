@@ -22,6 +22,7 @@ $all_publication_names = array_values(array_unique(array_merge(array_keys($publi
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
  <style type="text/css">
   .drag-handle { cursor: move; }
+  .repeat-row .drag-handle { flex: 0 0 auto; }
   tr.ui-sortable-helper { background: #f5f5f5; box-shadow: 0 2px 6px rgba(0,0,0,0.3); display: table; }
   .header-row { display: flex; align-items: center; justify-content: space-between; }
   .header-actions .btn { margin-left: 8px; }
@@ -324,6 +325,7 @@ $(document).ready(function () {
  function addReviewRow(publication, url) {
   var $row = $(
    '<div class="repeat-row">' +
+    '<span class="drag-handle text-center"><i class="glyphicon glyphicon-resize-vertical"></i></span>' +
     '<input type="text" name="reviews_publication[]" class="form-control repeat-row-publication" placeholder="Publication (e.g. Wikipedia)" list="projects_publications_list">' +
     '<input type="text" name="reviews_url[]" class="form-control" placeholder="Review URL">' +
     '<img class="repeat-row-logo-preview img-thumbnail" src="" alt="">' +
@@ -385,6 +387,7 @@ $(document).ready(function () {
 
  $('#projects_add_video').on('click', function () { addVideoRow(); });
  $('#projects_add_review').on('click', function () { addReviewRow(); });
+ $('#projects_reviews_rows').sortable({ handle: '.drag-handle' });
  $(document).on('click', '.repeat-row-remove', function () {
   $(this).closest('.repeat-row').remove();
  });
