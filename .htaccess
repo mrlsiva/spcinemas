@@ -10,39 +10,56 @@ Options +FollowSymLinks
 
 # ---- Block access to dotfiles (.git, .env, .htaccess, .htpasswd, etc.) --
 <FilesMatch "^\.">
-    Require all denied
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
 </FilesMatch>
 
 # ---- Block direct access to backend/config files that should never be
 #      requested directly over HTTP -------------------------------------
 <FilesMatch "(Dbconfig\.php|admin_config\.php)$">
-    Require all denied
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
 </FilesMatch>
 
 # ---- Block access to database dumps, SQL files, logs and archives ------
-<FilesMatch "\.(sql|sql\.gz|log|bak|zip|tar|gz|md)$">
-    Require all denied
+<FilesMatch "\.(sql|log|bak|zip|tar|gz|md)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
 </FilesMatch>
 
 # ---- Block the /backup directory entirely (contains a full DB dump) ----
-RewriteEngine On
-RewriteCond %{REQUEST_URI} ^/backup/ [NC]
-RewriteRule ^ - [F,L]
+<IfModule mod_rewrite.c>
+    RewriteEngine On
 
-# ---- Prevent PHP (and other script) execution inside the uploads/images
-#      folder — defense in depth in case an upload filter is ever bypassed
-<FilesMatch "\.(php|phtml|php\d)$">
-    <If "%{REQUEST_URI} =~ m#^/assets/img/#">
-        Require all denied
-    </If>
-</FilesMatch>
+    RewriteCond %{REQUEST_URI} ^/backup/ [NC]
+    RewriteRule ^ - [F,L]
+
+    # ---- Prevent PHP execution inside the uploads/images folder ----------
+    # defense in depth in case an upload filter is ever bypassed
+    RewriteCond %{REQUEST_URI} ^/assets/img/ [NC]
+    RewriteRule \.(php|phtml|php[0-9])$ - [F,L]
+</IfModule>
 
 # ---- Security headers ----------------------------------------------------
 <IfModule mod_headers.c>
     Header set X-Content-Type-Options "nosniff"
     Header set X-Frame-Options "SAMEORIGIN"
     Header set Referrer-Policy "strict-origin-when-cross-origin"
-    Header set X-XSS-Protection "1; mode=block"
 </IfModule>
 
 # ---- Force HTTPS on live server (leave commented out for local XAMPP) --
