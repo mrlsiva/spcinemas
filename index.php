@@ -239,7 +239,7 @@ function tt_title($str) {
 				************************************** -->
 				
 				<div id="content-wrap">
-					<div class="tt-portfolio-slider cursor-drag-mouse-down" data-speed="1000" data-mousewheel="false" data-keyboard="true" data-simulate-touch="true" data-grab-cursor="true" data-pagination-type="progressbar">
+					<div class="tt-portfolio-slider cursor-drag-mouse-down" data-speed="1000" data-mousewheel="false" data-keyboard="true" data-simulate-touch="true" data-grab-cursor="true" data-pagination-type="progressbar" data-autoplay="5000" data-loop="true">
 
 						<!-- Begin swiper container -->
 						<div class="swiper">
