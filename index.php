@@ -101,6 +101,71 @@ function tt_title($str) {
 				background-size: 400% 100%;
 				animation: tt-skeleton-loading 1.4s ease infinite;
 			}
+
+			/* What We Do grid */
+			.wwd-grid {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 30px;
+			}
+			@media (max-width: 991px) {
+				.wwd-grid { grid-template-columns: repeat(2, 1fr); }
+			}
+			@media (max-width: 599px) {
+				.wwd-grid { grid-template-columns: 1fr; }
+			}
+			.wwd-item {
+				position: relative;
+				padding: 40px 30px;
+				border: 1px solid rgba(255, 255, 255, 0.1);
+				background-color: rgba(255, 255, 255, 0.02);
+			}
+			.wwd-num {
+				font-family: var(--tt-alter-font, inherit);
+				font-size: 20px;
+				font-weight: 700;
+				color: var(--tt-main-color);
+				margin-bottom: 18px;
+			}
+			.wwd-title {
+				margin: 0 0 14px;
+				font-size: 22px;
+				text-transform: uppercase;
+			}
+			.wwd-desc {
+				margin: 0 0 26px;
+				opacity: 0.75;
+			}
+			.wwd-icon {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 60px;
+				height: 60px;
+				border-radius: 50%;
+				border: 1px solid var(--tt-main-color);
+				color: var(--tt-main-color);
+				font-size: 20px;
+			}
+
+			/* What We Do - extra highlight section */
+			.wwd-extra-image {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				min-height: 360px;
+				border: 1px dashed rgba(255, 255, 255, 0.25);
+				background-color: rgba(255, 255, 255, 0.02);
+				color: inherit;
+				opacity: 0.5;
+				text-align: center;
+				padding: 20px;
+			}
+			.wwd-extra-image img {
+				display: block;
+				width: 100%;
+				height: auto;
+			}
 		</style>
 
 	</head>
@@ -204,7 +269,7 @@ function tt_title($str) {
 												<li><a href="index.php">Home</a></li>
 												<li><a href="#about-us">Who we are</a></li>
 												<li><a href="#our-team">Team</a></li>
-												<li><a href="#portfolio-grid">What We Do</a></li>
+												<li><a href="#what-we-do">What We Do</a></li>
 												<li><a href="#portfolio-grid">Our Works</a></li>
 												<li><a href="#associations">Our Associations</a></li>
 												<li><a href="#lets-talk">Contact us</a></li>
@@ -414,7 +479,70 @@ function tt_title($str) {
 
 						<!-- =======================
 						///// Begin tt-section /////
-						============================ 
+						============================
+						What We Do - service cards grid
+						-->
+						<!-- <div id="what-we-do" class="tt-section padding-top-xlg-60 padding-bottom-xlg-60">
+							<div class="tt-section-inner tt-wrap">
+
+								<div class="tt-heading tt-heading-lg tt-heading-center margin-bottom-120 anim-fadeinup">
+									<h2 class="tt-heading-title">WHAT WE DO</h2>
+								</div>
+
+								<?php
+								$wwd_items = [
+									['num' => '01', 'icon' => 'fa-video', 'title' => 'Production', 'desc' => 'End-to-end film and content production with creative excellence and precision.'],
+									['num' => '02', 'icon' => 'fa-film', 'title' => 'Line Production', 'desc' => 'Complete on-ground production support for local & international shoots. We handle the details, so you can focus on the story.'],
+									['num' => '03', 'icon' => 'fa-desktop', 'title' => 'First Copy', 'desc' => 'From raw footage to a refined first copy. Professional post production coordination to bring your story to life.'],
+									['num' => '04', 'icon' => 'fa-tv', 'title' => 'Web Series', 'desc' => 'Concept, production and execution of original and commissioned web series for OTT & digital platforms.'],
+									['num' => '05', 'icon' => 'fa-mobile-alt', 'title' => 'Micro Drama Vertical', 'desc' => 'Short format. Big impact. Vertical-first storytelling for the mobile generation.'],
+									['num' => '06', 'icon' => 'fa-globe', 'title' => 'Movie Distribution', 'desc' => 'Strategic theatrical and non-theatrical distribution across territories and platforms.'],
+									['num' => '07', 'icon' => 'fa-bullhorn', 'title' => 'Ads & Promo Cuts', 'desc' => 'High-impact promos, trailers, teasers and ad films that create buzz and drive audience engagement.'],
+									['num' => '08', 'icon' => 'fa-music', 'title' => 'Album Song Shoot', 'desc' => 'Creative concept to final shoot for music videos and album songs that look stunning and sound unforgettable.'],
+									['num' => '09', 'icon' => 'fa-bullseye', 'title' => 'Digital Marketing', 'desc' => 'Digital-first campaigns that build awareness, engagement and conversation around films, shows, brands and creators.'],
+								];
+								?>
+
+								<div class="wwd-grid">
+									<?php foreach ($wwd_items as $wwd): ?>
+									<div class="wwd-item anim-fadeinup">
+										<div class="wwd-num"><?php echo htmlspecialchars($wwd['num'], ENT_QUOTES, 'UTF-8'); ?></div>
+										<h3 class="wwd-title"><?php echo htmlspecialchars($wwd['title'], ENT_QUOTES, 'UTF-8'); ?></h3>
+										<p class="wwd-desc"><?php echo htmlspecialchars($wwd['desc'], ENT_QUOTES, 'UTF-8'); ?></p>
+										<div class="wwd-icon"><i class="fas <?php echo htmlspecialchars($wwd['icon'], ENT_QUOTES, 'UTF-8'); ?>"></i></div>
+									</div>
+									<?php endforeach; ?>
+								</div>
+
+							</div> 
+						</div> -->
+						<!-- End tt-section -->
+
+						<!-- =======================
+						///// Begin tt-section /////
+						============================
+						What We Do - extra highlight (new image goes under the title below)
+						-->
+						<!-- -extra -->
+						<div id="what-we-do" class="tt-section padding-bottom-xlg-60">
+							<div class="tt-section-inner tt-wrap ">
+
+								<div class="tt-heading tt-heading-lg tt-heading-center margin-bottom-60 ">
+									<h2 class="tt-heading-title">WHAT WE DO</h2>
+								</div>
+
+								<div class=" ">
+									<img src="assets/img/what-we-do.png" alt="">
+									<!-- Image goes here -->
+								</div>
+
+							</div> <!-- /.tt-section-inner -->
+						</div>
+						<!-- End tt-section -->
+
+						<!-- =======================
+						///// Begin tt-section /////
+						============================
 						* You can use padding classes if needed. For example "padding-top-xlg-60", "padding-bottom-xlg-60", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css".
 						-->
 						<div class="tt-section">
